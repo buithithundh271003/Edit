@@ -67,26 +67,20 @@ function Edit() {
       ctx.scale(flipHorizontal, flipVertical);
       ctx.drawImage(image, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
   
-      // Chuyển canvas thành Blob
-      canvas.toBlob(async (blob) => {
+     canvas.toBlob(async (blob) => {
         try {
-          // 1. Tạo FormData để upload lên Cloudinary
           const formData = new FormData();
-          formData.append("image", blob, "image.jpg"); // Field name phải trùng với Multer (`image`)
+          formData.append("image", blob, "image.jpg"); 
   
-          // 2. Gọi API backend để upload (Multer sẽ xử lý)
           const response = await fetch("http://localhost:4000/api/images", {
             method: "POST",
             body: formData,
-            // Không cần headers `Content-Type` khi dùng FormData!
           });
   
           const data = await response.json();
   
           if (!response.ok) throw new Error(data.error || "Upload failed");
-  
-          // 3. Lưu thông tin ảnh vào MongoDB (qua API khác nếu cần)
-          const imageInfo = data.urls[0]; // Lấy ảnh đầu tiên
+            const imageInfo = data.urls[0]; 
           const saveToDbResponse = await fetch("http://localhost:4000/api/image", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -94,6 +88,8 @@ function Edit() {
               imageUrl: imageInfo.url
             }),
           });
+          navigate("/gallery");
+
   
           if (!saveToDbResponse.ok) throw new Error("Failed to save to database");
   
@@ -102,7 +98,7 @@ function Edit() {
           console.error("Error:", error);
           message.error(error.message || "Lỗi khi upload ảnh");
         }
-      }, "image/jpeg", 0.9); // Chất lượng 90%
+      }, "image/jpeg", 0.9); 
     };
       navigate("/gallery");
     image.src = URL.createObjectURL(previewImg);

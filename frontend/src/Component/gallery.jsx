@@ -112,7 +112,7 @@ setFilteredImages(allImages);
                         <img
                         src={image.imageUrl}
                         alt="Uploaded"
-                        style={{ width: '100%', height: 'auto' }}
+                        style={{ width: '100%', height: '370px' }}
                         />
                     }
                     />
