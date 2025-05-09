@@ -1,15 +1,4 @@
-// const multer = require("multer");
-// const { CloudinaryStorage } = require("multer-storage-cloudinary");
-// const cloudinary = require("../config/cloudinary");
 
-// const storage = new CloudinaryStorage({
-//     cloudinary: cloudinary,
-//     params: {
-//         folder: "book_store",
-//     },
-// });
-
-// const upload = multer({ storage });
 
 const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
